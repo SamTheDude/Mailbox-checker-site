@@ -17,7 +17,7 @@ const LOADING_STRING = "Loading..."
 const LOADING_TICK = 100;
 
 function loadingFunction(loadingDiv){
-    let infoDump = document.getElementById("detailed-info");
+    let infoDump = document.getElementById("big-number");
     if(infoDump.innerHTML != ""){
         loadingDiv.style.display = "none";
     }else{
@@ -45,10 +45,10 @@ function tickLoadingAnimation(loadingDiv){
 */
 
 // Constants 
-const REQUEST_LOCATION = "resources/test-data.txt";
+const REQUEST_LOCATION = "data-request-pages/number.php";
 
 function requestStats(){
-    let infoDump = document.getElementById("detailed-info");
+    let infoDump = document.getElementById("big-number");
     let xmlHttp = new XMLHttpRequest();
     
     xmlHttp.onreadystatechange = function() {
@@ -63,6 +63,8 @@ function requestStats(){
     
     xmlHttp.open("GET", REQUEST_LOCATION, true);
     xmlHttp.send();
+
+    setTimeout(requestStats, LOADING_TICK*100);
 }
 
 
