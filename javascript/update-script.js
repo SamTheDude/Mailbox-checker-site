@@ -16,14 +16,14 @@
 const LOADING_STRING = "Loading..."
 const LOADING_TICK = 100;
 
-function loadingFunction(loadingDiv, callback){
-    if(false){
+function loadingFunction(loadingDiv){
+    let infoDump = document.getElementById("detailed-info");
+    if(infoDump.innerHTML != ""){
         loadingDiv.style.display = "none";
-        callback();
     }else{
         tickLoadingAnimation(loadingDiv);
         setTimeout(function() {
-            loadingFunction(loadingDiv, callback);
+            loadingFunction(loadingDiv);
         }, LOADING_TICK);
     }
 }
@@ -37,8 +37,39 @@ function tickLoadingAnimation(loadingDiv){
     }
 }
 
+
+/*
+* =====================================
+* ===== AJAX get and display info =====
+* =====================================
+*/
+
+// Constants 
+const REQUEST_LOCATION = "resources/test-data.txt";
+
+function requestStats(){
+    let infoDump = document.getElementById("detailed-info");
+    let xmlHttp = new XMLHttpRequest();
+    
+    xmlHttp.onreadystatechange = function() {
+        if (xmlHttp.readyState == XMLHttpRequest.DONE) {
+            if (xmlHttp.status == 200) {
+                infoDump.innerHTML = xmlHttp.responseText;
+            } else {
+                alert("Something went wrong getting the data. ERROR: " + xmlHttp.status);
+            }
+        }
+    }
+    
+    xmlHttp.open("GET", REQUEST_LOCATION, true);
+    xmlHttp.send();
+}
+
+
 document.addEventListener("DOMContentLoaded", function(){
     let loadingText = document.getElementById("loading-text");
 
-    loadingFunction(loadingText, tickLoadingAnimation);
+    loadingFunction(loadingText);
+
+    requestStats();
 });

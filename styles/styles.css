@@ -38,6 +38,19 @@ footer{
     font-size: 1.4em;
 }
 
+#big-number{
+    text-align: center;
+    padding: 20px;
+    font-size: 3em;
+}
+
+#detailed-info{
+    text-align: center;
+    padding: 80px;
+    font-size: 0.8em;
+}
+
+
  /*  
   *  ===== Desktop Styles =====
   */
