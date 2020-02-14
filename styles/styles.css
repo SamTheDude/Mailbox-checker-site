@@ -1,0 +1,47 @@
+/* 
+ * Stylesheet for mailbox checker site.
+ * 
+ * Copyright (c) 2020 Samuel Kent.
+ */
+
+/*  
+ *  ===== Mobile Styles =====
+ */
+
+body{
+    margin: 0px;
+    padding: 0px;
+    color: white;
+    background-color: rgb(0, 0, 0);
+    font-family: "Ubuntu", sans-serif;
+}
+
+header{
+    font-size: 2em;
+    padding: 10px 14px;
+    width: 100%;
+}
+
+footer{
+    position: absolute;
+    bottom: 0px;
+    padding: 10px 8px;
+    border-top: 3px solid white;
+    background-color: rgb(255, 255, 255, 0.2);
+    width: 100%;
+}
+
+#loading-text{
+    text-align: center;
+    margin-top: 20px;
+    padding: 20px;
+    font-size: 1.4em;
+}
+
+ /*  
+  *  ===== Desktop Styles =====
+  */
+
+  @media only screen and (min-width: 800px) {
+
+  }
