@@ -44,12 +44,19 @@ footer{
     text-align: center;
     padding: 20px;
     font-size: 6em;
+    display: none;
 }
 
 #detailed-info{
     text-align: center;
     padding: 80px;
     font-size: 0.8em;
+}
+
+#load-timer{
+    text-align: center;
+    padding: 20px;
+    font-size: 1.2em;
 }
 
 
