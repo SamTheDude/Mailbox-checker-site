@@ -1,7 +1,7 @@
 /*
  * Javascript written to update the mailbox site with 
  * the number of letter in the mailbox and to change 
- * to colour of the background accordingly.
+ * to colour of the number accordingly.
  * 
  * Copyright (c) 2020 Samuel Kent.
  */
@@ -51,10 +51,10 @@ function tickLoadingAnimation(loadingDiv){
 
 
 /*
-* =====================================
-* ===== AJAX get and display info =====
-* =====================================
-*/
+ * =====================================
+ * ===== AJAX get and display info =====
+ * =====================================
+ */
 
 // Constants 
 const REQUEST_LOCATION = "data-request-pages/number.php";
@@ -126,10 +126,42 @@ function reconnectTimer(time, speed){
     }
 }
 
-document.addEventListener("DOMContentLoaded", function(){
-    let loadingText = document.getElementById("loading-text"); 
+/*
+ * ====================================
+ * ===== Change background colour =====
+ * ====================================
+ */
 
+const MULTIPLE = 30;
+const NUMBER_UPDATE = 1000;
+
+function updateBackground(){
+    let bigNum = document.getElementById("big-number");
+
+    // Calculate the number and it's inverse limiting 
+    // both between 0-255.
+    let number = Number(bigNum.innerHTML) * MULTIPLE;
+    if(number > 255){
+        number = 255;
+    }
+    let inverse = 255 - number;
+
+    // Set colour of the big number.
+    bigNum.style.color = "rgb(255, " + inverse + ", " + inverse + ")";
+
+    // Call after timeout.
+    setTimeout(updateBackground, NUMBER_UPDATE);
+}
+
+// Startup all the processes in this file.
+document.addEventListener("DOMContentLoaded", function(){
+    // Request stats.
     requestStats();
 
+    // Run loading animation.
+    let loadingText = document.getElementById("loading-text"); 
     loadingFunction(loadingText);
+
+    // Run update background loop.
+    updateBackground();
 });
