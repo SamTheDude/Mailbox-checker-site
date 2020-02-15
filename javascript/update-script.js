@@ -58,18 +58,21 @@ function tickLoadingAnimation(loadingDiv){
 
 // Constants 
 const REQUEST_LOCATION = "data-request-pages/number.php";
-const REQUEST_INTERVAL = "50000";
-const ERR_REQUEST_INTERVAL = "10000"
+// Request intervals in seconds.
+const REQUEST_INTERVAL = 50;
+const ERR_REQUEST_INTERVAL = 10;
 const ERR_MSG = "Could not retrive data from the server. Attempting to reconnect.";
 
 function requestStats(){
     let bigNum = document.getElementById("big-number");
     let infoDump = document.getElementById("detailed-info");
     let loadingText = document.getElementById("loading-text"); 
-    //Clear the infodump.
+    // Clear the info dump.
     infoDump.innerHTML = "";
     let xmlHttp = new XMLHttpRequest();
     
+    // Function triggered by state change in the 
+    // request object.
     xmlHttp.onreadystatechange = function() {
         if (xmlHttp.readyState == XMLHttpRequest.DONE) {
             if (xmlHttp.status == 200) {
@@ -84,38 +87,35 @@ function requestStats(){
         }
     }
     
+    // Send the request.
     xmlHttp.open("GET", REQUEST_LOCATION, true);
     xmlHttp.send();
 
-    let delay = REQUEST_INTERVAL;
-
-    if(infoDump.innerHTML == ERR_MSG){
-        delay = ERR_REQUEST_INTERVAL;
-    }
-
-    setTimeout(requestStats, delay);
-
     let now = new Date();
 
-    console.log(Math.round(now.getTime()/1000) + delay/1000);
-
-    reconnectTimer(Math.round(now.getTime()/1000) + delay/1000);
+    reconnectTimer(Math.round(now.getTime()/1000) + REQUEST_INTERVAL, false);
 }
 
-function reconnectTimer(time){
+function reconnectTimer(time, speed){
     let timerDiv = document.getElementById("load-timer");
+    let infoDump = document.getElementById("detailed-info");
 
     let now = new Date();
 
     let timeRemaining = time - Math.round(now.getTime()/1000);
 
-    if(timeRemaining != 0){
+    if(infoDump.innerHTML == ERR_MSG && speed == false){
+        let now = new Date();
+        reconnectTimer(Math.round(now.getTime()/1000) + ERR_REQUEST_INTERVAL, true);
+        console.log("Hi");
+    }else if(timeRemaining >= 0){
         timerDiv.innerHTML = "Update in " + timeRemaining + " seconds."
         setTimeout(function() {
-            reconnectTimer(time);
+            reconnectTimer(time, speed);
         }, 1000);
     }else{
         timerDiv.innerHTML = "Attempting update..."
+        requestStats();
     }
 }
 
