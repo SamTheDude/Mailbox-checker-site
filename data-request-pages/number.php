@@ -1,17 +1,24 @@
 <?php
 
-$PDO = new PDO('sqlite:../database/MailDatabase.db');
-
-$commands = array("SELECT * FROM Opens;", "SELECT * FROM Collects;");
-$results = array(null, null);
-
-for ($i=0; $i < 2; $i++) { 
-    $statement = $PDO->prepare($commands[$i]);
-    $statement->execute();
-    $results[$i] = $statement->fetchAll();
+class MyDB extends SQLite3
+{
+    function __construct()
+    {
+        $this->open('../database/MailDatabase.db');
+    }
 }
 
-//print_r($results);
+$db = new MyDB();
+
+$results = array();
+
+$results[0] = $db->query('SELECT * FROM Opens;');
+var_dump($results[0]->fetchArray());
+
+$results[1] = $db->query('SELECT * FROM Collects;');
+var_dump($results[1]->fetchArray());
+
+print_r($results . "/n");
 
 $lastCollect = $results[1][0][1];
 
