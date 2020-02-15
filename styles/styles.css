@@ -19,7 +19,8 @@ body{
 header{
     font-size: 2em;
     padding: 10px 14px;
-    width: 100%;
+    box-sizing: border-box;
+    margin: 0;
 }
 
 footer{
@@ -28,6 +29,7 @@ footer{
     padding: 10px 8px;
     border-top: 3px solid white;
     background-color: rgb(255, 255, 255, 0.2);
+    box-sizing: border-box;
     width: 100%;
 }
 
@@ -52,9 +54,18 @@ footer{
 
 
  /*  
-  *  ===== Desktop Styles =====
+  * ===== Desktop Styles =====
   */
 
   @media only screen and (min-width: 800px) {
-      /* Mobile only ATM */
+    header{
+        font-size: 4em;
+        padding: 20px 24px;
+    }
+
+    #big-number{
+        text-align: center;
+        padding: 20px;
+        font-size: 14em;
+    }
   }
