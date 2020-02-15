@@ -91,29 +91,36 @@ function requestStats(){
     xmlHttp.open("GET", REQUEST_LOCATION, true);
     xmlHttp.send();
 
+    // Work out the current time in seconds.
     let now = new Date();
+    let timeSeconds = Math.round(now.getTime()/1000);
 
-    reconnectTimer(Math.round(now.getTime()/1000) + REQUEST_INTERVAL, false);
+    // Run the function to work out the timer 
+    // and when next to call this function.
+    reconnectTimer(timeSeconds + REQUEST_INTERVAL, false);
 }
 
 function reconnectTimer(time, speed){
     let timerDiv = document.getElementById("load-timer");
     let infoDump = document.getElementById("detailed-info");
 
+    // Get the time remaining till the update.
     let now = new Date();
-
     let timeRemaining = time - Math.round(now.getTime()/1000);
 
     if(infoDump.innerHTML == ERR_MSG && speed == false){
+        // Speed up the timer if the request was not successful.
         let now = new Date();
         reconnectTimer(Math.round(now.getTime()/1000) + ERR_REQUEST_INTERVAL, true);
-        console.log("Hi");
     }else if(timeRemaining >= 0){
+        // If the timer hasn't run out update the time then 
+        // call the timer function 1 second later.
         timerDiv.innerHTML = "Update in " + timeRemaining + " seconds."
         setTimeout(function() {
             reconnectTimer(time, speed);
         }, 1000);
     }else{
+        //If the timer has run out attempt to update.
         timerDiv.innerHTML = "Attempting update..."
         requestStats();
     }
