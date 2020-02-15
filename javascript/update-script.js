@@ -17,8 +17,8 @@ const LOADING_STRING = "Loading..."
 const LOADING_TICK = 100;
 
 function loadingFunction(loadingDiv){
-    let infoDump = document.getElementById("big-number");
-    if(infoDump.innerHTML != ""){
+    let bigNum = document.getElementById("big-number");
+    if(bigNum.innerHTML != ""){
         loadingDiv.style.display = "none";
     }else{
         tickLoadingAnimation(loadingDiv);
@@ -48,15 +48,17 @@ function tickLoadingAnimation(loadingDiv){
 const REQUEST_LOCATION = "data-request-pages/number.php";
 
 function requestStats(){
-    let infoDump = document.getElementById("big-number");
+    let bigNum = document.getElementById("big-number");
+    let infoDump = document.getElementById("detailed-info");
+    infoDump.innerHTML = "";
     let xmlHttp = new XMLHttpRequest();
     
     xmlHttp.onreadystatechange = function() {
         if (xmlHttp.readyState == XMLHttpRequest.DONE) {
             if (xmlHttp.status == 200) {
-                infoDump.innerHTML = xmlHttp.responseText;
+                bigNum.innerHTML = xmlHttp.responseText;
             } else {
-                alert("Something went wrong getting the data. ERROR: " + xmlHttp.status);
+                infoDump.innerHTML = "Error: " + xmlHttp.responseText;
             }
         }
     }
@@ -64,7 +66,7 @@ function requestStats(){
     xmlHttp.open("GET", REQUEST_LOCATION, true);
     xmlHttp.send();
 
-    setTimeout(requestStats, LOADING_TICK*100);
+    setTimeout(requestStats, LOADING_TICK*500);
 }
 
 
