@@ -1,9 +1,7 @@
 <?php
 
-$PDO = new PDO('sqlite:../database/MailDatabase.db');
+$db = new SQLite3('../database/MailDatabase.db');
 
-$statement = $PDO->prepare("INSERT INTO Opens (OpenDate) VALUES (CURRENT_TIMESTAMP);");
-
-$statement->execute();
+$db->query('INSERT INTO Opens (OpenDate) VALUES (CURRENT_TIMESTAMP);');
 
 ?>

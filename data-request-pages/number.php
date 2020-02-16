@@ -2,15 +2,22 @@
 
 $db = new SQLite3('../database/MailDatabase.db');
 
+$result = array();
+
+$result[0] = $db->query('SELECT * FROM Opens;');
+
+$result[1] = $db->query('SELECT * FROM Collects;');
+
 $results = array();
 
-$results[0] = $db->query('SELECT * FROM Opens;');
-$results[0] = $results[0]->fetchArray();
+for ($i=0; $i < 2; $i++) { 
+    $results[$i] = array();
+    while($row = $result[$i]->fetchArray()) {
+      array_push($results[$i], $row);
+   }
+}
 
-$results[1] = $db->query('SELECT * FROM Collects;');
-$results[1] = $results[1]->fetchArray();
-
-print_r($results . "/n");
+//print_r($results);
 
 $lastCollect = $results[1][0][1];
 
