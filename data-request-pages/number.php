@@ -1,22 +1,14 @@
 <?php
 
-class MyDB extends SQLite3
-{
-    function __construct()
-    {
-        $this->open('../database/MailDatabase.db');
-    }
-}
-
-$db = new MyDB();
+$db = new SQLite3('../database/MailDatabase.db');
 
 $results = array();
 
 $results[0] = $db->query('SELECT * FROM Opens;');
-var_dump($results[0]->fetchArray());
+$results[0] = $results[0]->fetchArray();
 
 $results[1] = $db->query('SELECT * FROM Collects;');
-var_dump($results[1]->fetchArray());
+$results[1] = $results[1]->fetchArray();
 
 print_r($results . "/n");
 
