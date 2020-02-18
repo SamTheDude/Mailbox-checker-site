@@ -63,6 +63,8 @@ const REQUEST_INTERVAL = 50;
 const ERR_REQUEST_INTERVAL = 10;
 const ERR_MSG = "Could not retrive data from the server. Attempting to reconnect.";
 
+// Asynchronously request the information from a 
+// page and return the text as a string.
 async function requestPage(pageName){
     const response = await fetch(pageName);
     return await response.text();
@@ -75,16 +77,20 @@ function requestStats(){
     // Clear the info dump.
     infoDump.innerHTML = "";
 
+
     requestPage(REQUEST_LOCATION)
         .then((stringResponse) => {
+            // Output the big number on the page.
             bigNum.innerHTML = stringResponse;
         })
         .catch((error) => {
+            // Display all the error messages on the page.
             infoDump.innerHTML = ERR_MSG;
             bigNum.innerHTML = "";
             if(loadingText.style.display == "none"){
                 loadingFunction(loadingText);
             }
+            console.log(error);
         });
 
     // Work out the current time in seconds.
