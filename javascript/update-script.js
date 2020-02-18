@@ -63,33 +63,29 @@ const REQUEST_INTERVAL = 50;
 const ERR_REQUEST_INTERVAL = 10;
 const ERR_MSG = "Could not retrive data from the server. Attempting to reconnect.";
 
+async function requestPage(pageName){
+    const response = await fetch(pageName);
+    return await response.text();
+}
+
 function requestStats(){
     let bigNum = document.getElementById("big-number");
     let infoDump = document.getElementById("detailed-info");
     let loadingText = document.getElementById("loading-text"); 
     // Clear the info dump.
     infoDump.innerHTML = "";
-    let xmlHttp = new XMLHttpRequest();
-    
-    // Function triggered by state change in the 
-    // request object.
-    xmlHttp.onreadystatechange = function() {
-        if (xmlHttp.readyState == XMLHttpRequest.DONE) {
-            if (xmlHttp.status == 200) {
-                bigNum.innerHTML = xmlHttp.responseText;
-            } else {
-                infoDump.innerHTML = ERR_MSG;
-                bigNum.innerHTML = "";
-                if(loadingText.style.display == "none"){
-                    loadingFunction(loadingText);
-                }
+
+    requestPage(REQUEST_LOCATION)
+        .then((stringResponse) => {
+            bigNum.innerHTML = stringResponse;
+        })
+        .catch((error) => {
+            infoDump.innerHTML = ERR_MSG;
+            bigNum.innerHTML = "";
+            if(loadingText.style.display == "none"){
+                loadingFunction(loadingText);
             }
-        }
-    }
-    
-    // Send the request.
-    xmlHttp.open("GET", REQUEST_LOCATION, true);
-    xmlHttp.send();
+        });
 
     // Work out the current time in seconds.
     let now = new Date();
