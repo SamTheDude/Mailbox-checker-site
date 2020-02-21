@@ -135,7 +135,7 @@ function reconnectTimer(time, speed){
  */
 
 const MULTIPLE = 30;
-const NUMBER_UPDATE = 1000;
+const NUMBER_UPDATE = 100;
 
 function updateBackground(){
     let bigNum = document.getElementById("big-number");
