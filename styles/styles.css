@@ -59,6 +59,42 @@ footer{
     font-size: 1.2em;
 }
 
+/* Sidebar CSS */
+.sidebar {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.8);
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+    border: 2px solid white;
+  }
+  
+  .sidebar div {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 1.4em;
+    color: rgb(200, 200, 200, 0.8);
+    display: block;
+    transition: 0.3s;
+  }
+  
+  .sidebar div:hover {
+    color: rgb(255, 255, 255);
+  }
+  
+  .sidebar .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+  }
+
 
  /*  
   * ===== Desktop Styles =====
@@ -74,5 +110,14 @@ footer{
         text-align: center;
         padding: 20px;
         font-size: 14em;
+    }
+
+    /* Sidebar CSS */
+    .sidenav {
+        padding-top: 15px;
+    }
+
+    .sidenav div {
+        font-size: 18px;
     }
   }

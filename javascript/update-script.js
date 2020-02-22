@@ -12,6 +12,9 @@
   * ====================================
   */
 
+// Use strict JS to avoid problems.
+"use strict";
+
 // Constant Definitions.
 const LOADING_STRING = "Loading..."
 const LOADING_TICK = 120;
@@ -135,7 +138,7 @@ function reconnectTimer(time, speed){
  */
 
 const MULTIPLE = 30;
-const NUMBER_UPDATE = 1000;
+const NUMBER_UPDATE = 100;
 
 function updateBackground(){
     let bigNum = document.getElementById("big-number");
