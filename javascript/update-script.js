@@ -12,6 +12,9 @@
   * ====================================
   */
 
+// Use strict JS to avoid problems.
+"use strict";
+
 // Constant Definitions.
 const LOADING_STRING = "Loading..."
 const LOADING_TICK = 120;

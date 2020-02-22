@@ -11,6 +11,9 @@
   * ==================================
   */
 
+// Use strict JS to avoid problems.
+"use strict";
+
 function openNav() {
     let sidebar = document.getElementsByClassName("sidebar")[0];
     sidebar.style.width = "250px";
@@ -19,6 +22,24 @@ function openNav() {
 function closeNav() {
     let sidebar = document.getElementsByClassName("sidebar")[0];
     sidebar.style.width = "0px";
+}
+
+ /*
+  * ==========================
+  * ===== Toggle Buttons =====
+  * ==========================
+  */
+
+function toggleTime() {
+    let timerDiv = document.getElementById("load-timer");
+
+    // Switch between display modes to show and 
+    // hide respectively.
+    if(timerDiv.style.display != "none"){
+        timerDiv.style.display = "none";
+    }else if(timerDiv.style.display == "none"){
+        timerDiv.style.display = "block";
+    }
 }
 
  /*
@@ -35,4 +56,12 @@ document.addEventListener("DOMContentLoaded", function(){
     // Set click events.
     header.addEventListener("click", openNav);
     closebtn.addEventListener("click", closeNav); 
+
+    //Get the sidebar buttons.
+    let toggleTimer = document.getElementById("timer-toggle");
+
+    console.log(toggleTimer);
+
+    //Set click events for the sidebar.
+    toggleTimer.addEventListener("click", toggleTime);
 });
