@@ -66,6 +66,9 @@ const REQUEST_INTERVAL = 50;
 const ERR_REQUEST_INTERVAL = 10;
 const ERR_MSG = "Could not retrive data from the server. Attempting to reconnect.";
 
+//Global sin place.
+var updateNow = false;
+
 // Asynchronously request the information from a 
 // page and return the text as a string.
 async function requestPage(pageName){
@@ -113,7 +116,12 @@ function reconnectTimer(time, speed){
     let now = new Date();
     let timeRemaining = time - Math.round(now.getTime()/1000);
 
-    if(infoDump.innerHTML == ERR_MSG && speed == false){
+    if(updateNow){
+        // Attempt update if the updateNow is set.
+        updateNow = false;
+        timerDiv.innerHTML = "Attempting update..."
+        requestStats();
+    }else if(infoDump.innerHTML == ERR_MSG && speed == false){
         // Speed up the timer if the request was not successful.
         let now = new Date();
         reconnectTimer(Math.round(now.getTime()/1000) + ERR_REQUEST_INTERVAL, true);
@@ -125,7 +133,7 @@ function reconnectTimer(time, speed){
             reconnectTimer(time, speed);
         }, 1000);
     }else{
-        //If the timer has run out attempt to update.
+        // If the timer has run out attempt to update.
         timerDiv.innerHTML = "Attempting update..."
         requestStats();
     }

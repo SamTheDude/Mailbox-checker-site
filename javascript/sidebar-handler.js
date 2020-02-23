@@ -59,9 +59,13 @@ document.addEventListener("DOMContentLoaded", function(){
 
     //Get the sidebar buttons.
     let toggleTimer = document.getElementById("timer-toggle");
+    let updateTrigger = document.getElementById("update-trigger");
 
     console.log(toggleTimer);
 
     //Set click events for the sidebar.
     toggleTimer.addEventListener("click", toggleTime);
+    updateTrigger.addEventListener("click", function(){
+        updateNow = true;
+    });
 });
